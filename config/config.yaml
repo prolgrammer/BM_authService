@@ -7,4 +7,6 @@ postgres:
   host: "${POSTGRES_HOST}"
   port: "${POSTGRES_PORT}"
   database: "${POSTGRES_DB}"
+  ssl_mode: "disable"
+  max_pool_size: "${POSTGRES_POOL_MAX}"
   migrations_path: "file://config/pg/migrations"

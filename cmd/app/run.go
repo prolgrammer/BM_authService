@@ -12,14 +12,18 @@ import (
 )
 
 var (
-	cfg            config.Config
+	cfg            *config.Config
 	postgresClient *postgres.Client
 
 	signUpUseCase usecases.SignUpUseCase
 )
 
 func Run() {
-	cfg = *config.NewConfig()
+	var err error
+	cfg, err = config.NewConfig()
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	initPostgres()
 	initUseCases()
@@ -34,8 +38,10 @@ func runServer() {
 	router.HandleMethodNotAllowed = true
 
 	http2.NewSignUpController(router, signUpUseCase)
+
 	address := fmt.Sprintf("%s:%s", cfg.Http.Host, cfg.Http.Port)
 	fmt.Printf("starting server at %s\n", address)
+
 	err := http.ListenAndServe(address, router)
 	if err != nil {
 		panic(err)

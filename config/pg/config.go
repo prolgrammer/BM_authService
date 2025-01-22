@@ -3,28 +3,15 @@ package pg
 import "time"
 
 type Config struct {
-	MaxPoolSize    int
-	Host           string
-	Port           int
-	User           string //postgres
-	Password       string //1234
-	Database       string
-	SSLMode        string
-	MigrationsPath string
+	MaxPoolSize    int    `mapstructure:"max_pool_size"`
+	Host           string `mapstructure:"host"`
+	Port           int    `mapstructure:"port"`
+	User           string `mapstructure:"user"`
+	Password       string `mapstructure:"password"`
+	Database       string `mapstructure:"database"`
+	SSLMode        string `mapstructure:"ssl_mode"`
+	MigrationsPath string `mapstructure:"migrations_path"`
 
 	RetryConnectionAttempts int
 	RetryConnectionTimeout  time.Duration
-}
-
-func LoadConfig() *Config {
-	cfg := &Config{
-		Host:           "localhost",
-		Port:           5432,
-		User:           "postgres",
-		Password:       "1234",
-		Database:       "BoxMaster",
-		SSLMode:        "disable",
-		MigrationsPath: "file://config/pg/migrations",
-	}
-	return cfg
 }

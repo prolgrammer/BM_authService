@@ -94,9 +94,7 @@ func (c *Client) connectionString() string {
 }
 
 func (c *Client) MigrateUp() error {
-	fmt.Println(c.cfg.MigrationsPath)
 	m, err := migrate.New(c.cfg.MigrationsPath, c.connectionString())
-	fmt.Println(c.connectionString())
 	if err != nil {
 		return fmt.Errorf("failed to create migration handler: %v", err)
 	}
