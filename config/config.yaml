@@ -1,0 +1,10 @@
+http:
+  host: "${AUTH_HOST}"
+  port: "${AUTH_PORT}"
+postgres:
+  user: "${POSTGRES_USER}"
+  password: "${POSTGRES_PASSWORD}"
+  host: "${POSTGRES_HOST}"
+  port: "${POSTGRES_PORT}"
+  database: "${POSTGRES_DB}"
+  migrations_path: "file://config/pg/migrations"
