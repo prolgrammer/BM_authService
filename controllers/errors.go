@@ -3,7 +3,7 @@ package controllers
 import "errors"
 
 var (
-	DataBindError      = errors.New("wrong data format")
-	AuthRequiredError  = errors.New("auth is required")
-	RegistrationsError = errors.New("registrations are required")
+	ErrDataBindError      = errors.New("wrong data format")
+	ErrAuthRequiredError  = errors.New("auth is required")
+	ErrRegistrationsError = errors.New("registrations are required")
 )

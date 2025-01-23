@@ -3,7 +3,9 @@ package app
 import (
 	config "auth/config"
 	http2 "auth/controllers/http"
+	"auth/controllers/http/middleware"
 	"auth/infrastructure/postgres"
+	"auth/internal/repositories"
 	"auth/internal/usecases"
 	"errors"
 	"fmt"
@@ -14,6 +16,8 @@ import (
 var (
 	cfg            *config.Config
 	postgresClient *postgres.Client
+
+	accountRepository repositories.AccountRepository
 
 	signUpUseCase usecases.SignUpUseCase
 )
@@ -26,6 +30,7 @@ func Run() {
 	}
 
 	initPostgres()
+	initRepositories()
 	initUseCases()
 
 	defer postgresClient.Close()
@@ -37,7 +42,9 @@ func runServer() {
 	router := gin.New()
 	router.HandleMethodNotAllowed = true
 
-	http2.NewSignUpController(router, signUpUseCase)
+	mw := middleware.NewMiddleware()
+
+	http2.NewSignUpController(router, signUpUseCase, mw)
 
 	address := fmt.Sprintf("%s:%s", cfg.Http.Host, cfg.Http.Port)
 	fmt.Printf("starting server at %s\n", address)
@@ -69,6 +76,12 @@ func initPostgres() {
 	}
 }
 
+func initRepositories() {
+	accountRepository = CreatePGAccountRepository(postgresClient)
+}
+
 func initUseCases() {
-	signUpUseCase = usecases.NewSignUpUseCase()
+	signUpUseCase = usecases.NewSignUpUseCase(
+		accountRepository,
+	)
 }

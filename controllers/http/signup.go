@@ -17,20 +17,22 @@ type signupController struct {
 func NewSignUpController(
 	handler *gin.Engine,
 	user usecases.SignUpUseCase,
+	middleware middleware.Middleware,
 ) {
 	u := &signupController{
 		user: user,
 	}
 
-	handler.POST("/signup", u.SignUp)
+	handler.POST("/signup", u.SignUp, middleware.HandleErrors)
 }
 
 func (u *signupController) SignUp(ctx *gin.Context) {
 	fmt.Print("SignUp\n")
 
 	var req requests.SignRequest
-	if err := ctx.ShouldBind(req); err != nil {
-		wrappedErr := fmt.Errorf("%w: %v", controllers.DataBindError, err)
+	if err := ctx.ShouldBind(&req); err != nil {
+		fmt.Println(err)
+		wrappedErr := fmt.Errorf("%w: %v", controllers.ErrDataBindError, err)
 		middleware.AddGinError(ctx, wrappedErr)
 
 		return

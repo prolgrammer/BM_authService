@@ -9,7 +9,3 @@ func AddGinError(ctx *gin.Context, err error) {
 		Meta: nil,
 	})
 }
-
-func CreateError() {
-
-}

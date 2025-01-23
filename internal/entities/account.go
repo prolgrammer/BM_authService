@@ -1,12 +1,17 @@
 package entities
 
+import "time"
+
 type Account struct {
-	Email    string
-	Password string
+	Id               string
+	Email            string
+	Password         string
+	RegistrationDate time.Time
+	Role             string
 }
 
-func CreateAccount(email string, password string) *Account {
-	return &Account{email, password}
+func NewAccount(email string, password string) Account {
+	return Account{Email: email, Password: password, Role: UserRole, RegistrationDate: time.Now()}
 }
 
 func (a Account) Validate() error {

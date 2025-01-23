@@ -1,5 +1,5 @@
 package responses
 
 type SignResponse struct { //хочу вовзращать access and refresh token
-	answer bool
+	Id string `json:"id"`
 }
