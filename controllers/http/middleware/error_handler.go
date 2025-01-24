@@ -44,6 +44,11 @@ func (m middleware) HandleErrors(c *gin.Context) {
 			return
 		}
 
+		if errors.Is(err, usecases.ErrPasswordMismatch) {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, err.Error())
+			return
+		}
+
 		fmt.Println("Unexpected error")
 		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 	}

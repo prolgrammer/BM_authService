@@ -10,9 +10,15 @@ import (
 
 type (
 	Config struct {
-		Http HTTP      `mapstructure:"http"`
+		App  `mapstructure:"app"`
+		HTTP `mapstructure:"http"`
 		PG   pg.Config `mapstructure:"postgres"`
 	}
+
+	App struct {
+		GinMode string `mapstructure:"gin_mode"`
+	}
+
 	HTTP struct {
 		Host string `mapstructure:"host"`
 		Port string `mapstructure:"port"`

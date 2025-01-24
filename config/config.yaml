@@ -1,3 +1,5 @@
+app:
+  gin_mode: "${GIN_MODE}"
 http:
   host: "${AUTH_HOST}"
   port: "${AUTH_PORT}"

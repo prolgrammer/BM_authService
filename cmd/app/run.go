@@ -20,6 +20,7 @@ var (
 	accountRepository repositories.AccountRepository
 
 	signUpUseCase usecases.SignUpUseCase
+	signInUseCase usecases.SignInUseCase
 )
 
 func Run() {
@@ -28,6 +29,7 @@ func Run() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	//gin.SetMode(gin.DebugMode)
 
 	initPostgres()
 	initRepositories()
@@ -45,14 +47,17 @@ func runServer() {
 	mw := middleware.NewMiddleware()
 
 	http2.NewSignUpController(router, signUpUseCase, mw)
+	http2.NewSignInController(router, signInUseCase, mw)
 
-	address := fmt.Sprintf("%s:%s", cfg.Http.Host, cfg.Http.Port)
+	address := fmt.Sprintf("%s:%s", cfg.HTTP.Host, cfg.HTTP.Port)
 	fmt.Printf("starting server at %s\n", address)
 
+	fmt.Println("Current mode:", gin.Mode())
 	err := http.ListenAndServe(address, router)
 	if err != nil {
 		panic(err)
 	}
+
 }
 
 func initPostgres() {
@@ -84,4 +89,8 @@ func initUseCases() {
 	signUpUseCase = usecases.NewSignUpUseCase(
 		accountRepository,
 	)
+	signInUseCase = usecases.NewSignInUseCase(
+		accountRepository,
+	)
+
 }
