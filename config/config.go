@@ -6,22 +6,34 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 	"os"
+	"time"
 )
 
 type (
 	Config struct {
-		App  `mapstructure:"app"`
-		HTTP `mapstructure:"http"`
-		PG   pg.Config `mapstructure:"postgres"`
+		App         `mapstructure:"app"`
+		TokenConfig `mapstructure:"token_config"`
+		HTTP        `mapstructure:"http"`
+		JWT         `mapstructure:"jwt"`
+		PG          pg.Config `mapstructure:"postgres"`
 	}
 
 	App struct {
 		GinMode string `mapstructure:"gin_mode"`
 	}
 
+	TokenConfig struct {
+		AccessTokenDuration  time.Duration `mapstructure:"access_token_duration"`
+		RefreshTokenDuration time.Duration `mapstructure:"refresh_token_duration"`
+	}
+
 	HTTP struct {
 		Host string `mapstructure:"host"`
 		Port string `mapstructure:"port"`
+	}
+
+	JWT struct {
+		SignSecretToken string `mapstructure:"secret_key"`
 	}
 )
 

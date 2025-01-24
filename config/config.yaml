@@ -12,3 +12,8 @@ postgres:
   ssl_mode: "disable"
   max_pool_size: "${POSTGRES_POOL_MAX}"
   migrations_path: "file://config/pg/migrations"
+token_config:
+  access_token_duration: "${AUTH_ACCESS_TOKEN_TTL}"
+  refresh_token_duration: "${AUTH_REFRESH_TOKEN_TTL}"
+jwt:
+  secret_key: "${AUTH_JWT_SECRET_KEY}"

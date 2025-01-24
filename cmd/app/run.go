@@ -7,6 +7,8 @@ import (
 	"auth/infrastructure/postgres"
 	"auth/internal/repositories"
 	"auth/internal/usecases"
+	"auth/pkg/jwt"
+	pkg "auth/pkg/services"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -17,7 +19,10 @@ var (
 	cfg            *config.Config
 	postgresClient *postgres.Client
 
+	sessionService pkg.SessionService
+
 	accountRepository repositories.AccountRepository
+	sessionRepository repositories.SessionRepository
 
 	signUpUseCase usecases.SignUpUseCase
 	signInUseCase usecases.SignInUseCase
@@ -29,15 +34,21 @@ func Run() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	//gin.SetMode(gin.DebugMode)
 
 	initPostgres()
+	initServices()
 	initRepositories()
 	initUseCases()
 
 	defer postgresClient.Close()
 
 	runServer()
+}
+
+func initServices() {
+	accessTokenService := jwt.NewTokenService(cfg.JWT.SignSecretToken)
+	refreshTokenService := jwt.NewTokenService(cfg.JWT.SignSecretToken)
+	sessionService = pkg.NewSessionService(cfg.TokenConfig, accessTokenService, refreshTokenService)
 }
 
 func runServer() {
@@ -83,11 +94,14 @@ func initPostgres() {
 
 func initRepositories() {
 	accountRepository = CreatePGAccountRepository(postgresClient)
+	sessionRepository = CreateSessionRepository(postgresClient)
 }
 
 func initUseCases() {
 	signUpUseCase = usecases.NewSignUpUseCase(
 		accountRepository,
+		sessionRepository,
+		sessionService,
 	)
 	signInUseCase = usecases.NewSignInUseCase(
 		accountRepository,

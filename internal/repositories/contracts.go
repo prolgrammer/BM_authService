@@ -14,3 +14,9 @@ type (
 		Execute(context context.Context, email entities.Email) (entities.Account, error)
 	}
 )
+
+type (
+	InsertSessionCommand interface {
+		Execute(context context.Context, account entities.Session) error
+	}
+)

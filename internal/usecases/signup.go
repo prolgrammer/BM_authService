@@ -10,6 +10,8 @@ import (
 
 type signUpUseCase struct {
 	accountRepository SignUpAccountRepository
+	sessionRepository SessionRepository
+	sessionService    SignUpSessionService
 }
 
 type SignUpUseCase interface {
@@ -18,9 +20,13 @@ type SignUpUseCase interface {
 
 func NewSignUpUseCase(
 	accountRepository SignUpAccountRepository,
+	sessionRepository SessionRepository,
+	sessionService SignUpSessionService,
 ) SignUpUseCase {
 	return &signUpUseCase{
 		accountRepository: accountRepository,
+		sessionRepository: sessionRepository,
+		sessionService:    sessionService,
 	}
 }
 
@@ -44,7 +50,18 @@ func (u *signUpUseCase) SignUp(ctx context.Context, request requests.SignRequest
 		return responses.SignResponse{}, fmt.Errorf("in insert account error: %v", err)
 	}
 
+	session, err := u.sessionService.CreateSession(account)
+	if err != nil {
+		return responses.SignResponse{}, fmt.Errorf("in create session error: %v", err)
+	}
+
+	err = u.sessionRepository.Insert(ctx, session)
+	if err != nil {
+		return responses.SignResponse{}, fmt.Errorf("in insert session error: %v", err)
+	}
+
 	return responses.SignResponse{
-		Id: account.Id,
+		Id:      account.Id,
+		Session: responses.NewSession(session.AccessToken, session.RefreshToken, session.ExpiresAt.Unix()),
 	}, nil
 }

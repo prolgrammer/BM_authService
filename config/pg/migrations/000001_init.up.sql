@@ -19,3 +19,13 @@ create table accounts
     user_id UUID references users(id) on delete cascade
 );
 
+create table sessions
+(
+    id UUID default gen_random_uuid() primary key,
+    access_token varchar(256) not null,
+    refresh_token varchar(256) not null,
+    account_id integer not null references accounts(id),
+    expires_at date not null
+);
+
+
