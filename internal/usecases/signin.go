@@ -7,18 +7,25 @@ import (
 	"auth/internal/repositories"
 	"context"
 	"errors"
+	"fmt"
 )
 
 type signInUseCase struct {
 	accountRepository repositories.AccountRepository
+	sessionService    SessionService
+	sessionRepository SessionRepository
 }
 
 type SignInUseCase interface {
 	SignIn(ctx context.Context, request requests.SignRequest) (responses.SignResponse, error)
 }
 
-func NewSignInUseCase(accountRepository repositories.AccountRepository) SignInUseCase {
-	return &signInUseCase{accountRepository: accountRepository}
+func NewSignInUseCase(accountRepository repositories.AccountRepository, sessionRepository repositories.SessionRepository, sessionService SessionService) SignInUseCase {
+	return &signInUseCase{
+		accountRepository: accountRepository,
+		sessionService:    sessionService,
+		sessionRepository: sessionRepository,
+	}
 }
 
 func (s signInUseCase) SignIn(ctx context.Context, request requests.SignRequest) (responses.SignResponse, error) {
@@ -34,7 +41,18 @@ func (s signInUseCase) SignIn(ctx context.Context, request requests.SignRequest)
 		return responses.SignResponse{}, ErrPasswordMismatch
 	}
 
+	session, err := s.sessionService.CreateSession(ac)
+	if err != nil {
+		return responses.SignResponse{}, fmt.Errorf("in create session error: %v", err)
+	}
+
+	err = s.sessionRepository.Insert(ctx, session)
+	if err != nil {
+		return responses.SignResponse{}, fmt.Errorf("in insert session error: %v", err)
+	}
+
 	return responses.SignResponse{
-		Id: ac.Id,
+		Id:      ac.Id,
+		Session: responses.NewSession(session.AccessToken, session.RefreshToken, session.ExpiresAt.Unix()),
 	}, nil
 }

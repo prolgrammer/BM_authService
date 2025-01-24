@@ -11,7 +11,7 @@ import (
 type signUpUseCase struct {
 	accountRepository SignUpAccountRepository
 	sessionRepository SessionRepository
-	sessionService    SignUpSessionService
+	sessionService    SessionService
 }
 
 type SignUpUseCase interface {
@@ -21,7 +21,7 @@ type SignUpUseCase interface {
 func NewSignUpUseCase(
 	accountRepository SignUpAccountRepository,
 	sessionRepository SessionRepository,
-	sessionService SignUpSessionService,
+	sessionService SessionService,
 ) SignUpUseCase {
 	return &signUpUseCase{
 		accountRepository: accountRepository,

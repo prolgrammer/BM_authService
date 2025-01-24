@@ -105,6 +105,8 @@ func initUseCases() {
 	)
 	signInUseCase = usecases.NewSignInUseCase(
 		accountRepository,
+		sessionRepository,
+		sessionService,
 	)
 
 }

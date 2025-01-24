@@ -10,8 +10,10 @@ type (
 		CheckEmailExists(ctx context.Context, email entities.Email) (bool, error)
 		Insert(ctx context.Context, email entities.Account) (string, error)
 	}
+)
 
-	SignUpSessionService interface {
+type (
+	SessionService interface {
 		CreateSession(user entities.Account) (entities.Session, error)
 	}
 
