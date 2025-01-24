@@ -3,7 +3,6 @@ package usecases
 import (
 	"auth/controllers/requests"
 	"auth/controllers/responses"
-	"auth/internal/entities"
 	"auth/internal/repositories"
 	"context"
 	"errors"
@@ -11,7 +10,7 @@ import (
 )
 
 type signInUseCase struct {
-	accountRepository repositories.AccountRepository
+	accountRepository SignInAccountRepository
 	sessionService    SessionService
 	sessionRepository SessionRepository
 }
@@ -20,7 +19,7 @@ type SignInUseCase interface {
 	SignIn(ctx context.Context, request requests.SignRequest) (responses.SignResponse, error)
 }
 
-func NewSignInUseCase(accountRepository repositories.AccountRepository, sessionRepository repositories.SessionRepository, sessionService SessionService) SignInUseCase {
+func NewSignInUseCase(accountRepository SignInAccountRepository, sessionRepository repositories.SessionRepository, sessionService SessionService) SignInUseCase {
 	return &signInUseCase{
 		accountRepository: accountRepository,
 		sessionService:    sessionService,
@@ -29,7 +28,7 @@ func NewSignInUseCase(accountRepository repositories.AccountRepository, sessionR
 }
 
 func (s signInUseCase) SignIn(ctx context.Context, request requests.SignRequest) (responses.SignResponse, error) {
-	ac, err := s.accountRepository.SelectByEmail(ctx, entities.Email(request.Email))
+	ac, err := s.accountRepository.SelectByEmail(ctx, request.Email)
 	if err != nil {
 		if errors.Is(err, repositories.ErrEntityNotFound) {
 			return responses.SignResponse{}, repositories.ErrEntityNotFound

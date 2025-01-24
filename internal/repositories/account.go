@@ -14,7 +14,7 @@ type accountRepository struct {
 type AccountRepository interface {
 	Insert(ctx context.Context, account entities.Account) (string, error)
 	//SelectById(ctx context.Context, id string) (entities.Account, error)
-	SelectByEmail(ctx context.Context, email entities.Email) (entities.Account, error)
+	SelectByEmail(ctx context.Context, email string) (entities.Account, error)
 	CheckEmailExists(ctx context.Context, email entities.Email) (bool, error)
 	//ChangePassword(ctx context.Context, id string, newPassword string) error
 }
@@ -33,8 +33,8 @@ func (u *accountRepository) Insert(ctx context.Context, account entities.Account
 	return u.insertAccountCommand.Execute(ctx, account)
 }
 
-func (u *accountRepository) SelectByEmail(ctx context.Context, email entities.Email) (entities.Account, error) {
-	return u.selectAccountByEmailCommand.Execute(ctx, email)
+func (u *accountRepository) SelectByEmail(ctx context.Context, email string) (entities.Account, error) {
+	return u.selectAccountByEmailCommand.Execute(ctx, entities.Email(email))
 }
 
 func (u *accountRepository) CheckEmailExists(ctx context.Context, email entities.Email) (bool, error) {

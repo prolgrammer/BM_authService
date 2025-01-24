@@ -10,6 +10,10 @@ type (
 		CheckEmailExists(ctx context.Context, email entities.Email) (bool, error)
 		Insert(ctx context.Context, email entities.Account) (string, error)
 	}
+
+	SignInAccountRepository interface {
+		SelectByEmail(ctx context.Context, email string) (entities.Account, error)
+	}
 )
 
 type (
