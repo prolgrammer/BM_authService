@@ -13,17 +13,19 @@ type signInUseCase struct {
 	accountRepository SignInAccountRepository
 	sessionService    SessionService
 	sessionRepository SessionRepository
+	hashService       SignInHashService
 }
 
 type SignInUseCase interface {
 	SignIn(ctx context.Context, request requests.SignRequest) (responses.SignResponse, error)
 }
 
-func NewSignInUseCase(accountRepository SignInAccountRepository, sessionRepository repositories.SessionRepository, sessionService SessionService) SignInUseCase {
+func NewSignInUseCase(accountRepository SignInAccountRepository, sessionRepository repositories.SessionRepository, sessionService SessionService, hashService SignInHashService) SignInUseCase {
 	return &signInUseCase{
 		accountRepository: accountRepository,
 		sessionService:    sessionService,
 		sessionRepository: sessionRepository,
+		hashService:       hashService,
 	}
 }
 
@@ -36,8 +38,9 @@ func (s signInUseCase) SignIn(ctx context.Context, request requests.SignRequest)
 		return responses.SignResponse{}, err
 	}
 
-	if request.Password != ac.Password {
-		return responses.SignResponse{}, ErrPasswordMismatch
+	_, err = s.hashService.CompareStringAndHash(request.Password, string(ac.Password))
+	if err != nil {
+		return responses.SignResponse{}, fmt.Errorf("failed to compare password: %w", err)
 	}
 
 	session, err := s.sessionService.CreateSession(ac)

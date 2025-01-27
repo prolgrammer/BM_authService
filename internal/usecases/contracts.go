@@ -25,3 +25,13 @@ type (
 		Insert(ctx context.Context, session entities.Session) error
 	}
 )
+
+type (
+	SignUpHashService interface {
+		CreateHash(password string) ([]byte, error)
+	}
+
+	SignInHashService interface {
+		CompareStringAndHash(stringToCompare string, hashedString string) (bool, error)
+	}
+)

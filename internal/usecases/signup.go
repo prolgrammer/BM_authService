@@ -12,6 +12,7 @@ type signUpUseCase struct {
 	accountRepository SignUpAccountRepository
 	sessionRepository SessionRepository
 	sessionService    SessionService
+	hashService       SignUpHashService
 }
 
 type SignUpUseCase interface {
@@ -22,11 +23,13 @@ func NewSignUpUseCase(
 	accountRepository SignUpAccountRepository,
 	sessionRepository SessionRepository,
 	sessionService SessionService,
+	hashService SignUpHashService,
 ) SignUpUseCase {
 	return &signUpUseCase{
 		accountRepository: accountRepository,
 		sessionRepository: sessionRepository,
 		sessionService:    sessionService,
+		hashService:       hashService,
 	}
 }
 
@@ -44,6 +47,12 @@ func (u *signUpUseCase) SignUp(ctx context.Context, request requests.SignRequest
 	if err != nil {
 		return responses.SignResponse{}, err
 	}
+
+	hashedPassword, err := u.hashService.CreateHash(request.Password)
+	if err != nil {
+		return responses.SignResponse{}, fmt.Errorf("failed to hash the password: %v", err)
+	}
+	account.Password = entities.Password(hashedPassword)
 
 	account.Id, err = u.accountRepository.Insert(ctx, account)
 	if err != nil {

@@ -20,6 +20,7 @@ var (
 	postgresClient *postgres.Client
 
 	sessionService pkg.SessionService
+	hashService    pkg.HashService
 
 	accountRepository repositories.AccountRepository
 	sessionRepository repositories.SessionRepository
@@ -46,6 +47,8 @@ func Run() {
 }
 
 func initServices() {
+	hashService = pkg.NewHashService()
+
 	accessTokenService := jwt.NewTokenService(cfg.JWT.SignSecretToken)
 	refreshTokenService := jwt.NewTokenService(cfg.JWT.SignSecretToken)
 	sessionService = pkg.NewSessionService(cfg.TokenConfig, accessTokenService, refreshTokenService)
@@ -102,11 +105,13 @@ func initUseCases() {
 		accountRepository,
 		sessionRepository,
 		sessionService,
+		hashService,
 	)
 	signInUseCase = usecases.NewSignInUseCase(
 		accountRepository,
 		sessionRepository,
 		sessionService,
+		hashService,
 	)
 
 }
