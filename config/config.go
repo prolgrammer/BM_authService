@@ -3,7 +3,6 @@ package config
 import (
 	"auth/config/pg"
 	"fmt"
-	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 	"os"
 	"time"
@@ -38,18 +37,13 @@ type (
 )
 
 func NewConfig() (*Config, error) {
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Printf("Warning: could not load .env file: %s\n", err)
-	}
-
 	cfg := Config{}
 	v := viper.New()
 	v.SetConfigName("config")
 	v.SetConfigType("yaml")
 	v.AddConfigPath("config/")
 
-	err = v.ReadInConfig()
+	err := v.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("fatal error config file: %s", err))
 	}

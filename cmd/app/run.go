@@ -93,6 +93,7 @@ func initPostgres() {
 		fmt.Printf("postgres migrate error: %v", err)
 		return
 	}
+	fmt.Println("postgres migrate success")
 }
 
 func initRepositories() {
