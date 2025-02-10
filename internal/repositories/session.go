@@ -6,16 +6,26 @@ import (
 )
 
 type sessionRepository struct {
-	insertSessionCommand InsertSessionCommand
+	insertSessionCommand              InsertSessionCommand
+	selectSessionByAccessTokenCommand SelectSessionByAccessTokenCommand
+	updateSessionByAccessTokenCommand UpdateSessionByAccessTokenCommand
+	deleteSessionByAccessTokenCommand DeleteSessionByAccessTokenCommand
 }
 
 type SessionRepository interface {
 	Insert(ctx context.Context, session entities.Session) error
 }
 
-func NewSessionRepository(insertSessionCommand InsertSessionCommand) SessionRepository {
+func NewSessionRepository(
+	insertSessionCommand InsertSessionCommand,
+	selectSessionByAccessTokenCommand SelectSessionByAccessTokenCommand,
+	updateSessionByAccessTokenCommand UpdateSessionByAccessTokenCommand,
+	deleteSessionByAccessTokenCommand DeleteSessionByAccessTokenCommand) SessionRepository {
 	return &sessionRepository{
-		insertSessionCommand: insertSessionCommand,
+		insertSessionCommand:              insertSessionCommand,
+		selectSessionByAccessTokenCommand: selectSessionByAccessTokenCommand,
+		updateSessionByAccessTokenCommand: updateSessionByAccessTokenCommand,
+		deleteSessionByAccessTokenCommand: deleteSessionByAccessTokenCommand,
 	}
 }
 

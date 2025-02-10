@@ -13,6 +13,7 @@ type (
 		App         `mapstructure:"app"`
 		TokenConfig `mapstructure:"token_config"`
 		HTTP        `mapstructure:"http"`
+		Redis       `mapstructure:"redis"`
 		JWT         `mapstructure:"jwt"`
 		PG          pg.Config `mapstructure:"postgres"`
 	}
@@ -29,6 +30,13 @@ type (
 	HTTP struct {
 		Host string `mapstructure:"host"`
 		Port string `mapstructure:"port"`
+	}
+
+	Redis struct {
+		Host     string `mapstructure:"host"`
+		Port     string `mapstructure:"port"`
+		Password string `mapstructure:"password"`
+		DB       int    `mapstructure:"db"`
 	}
 
 	JWT struct {

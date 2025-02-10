@@ -3,6 +3,11 @@ app:
 http:
   host: "${AUTH_HOST}"
   port: "${AUTH_PORT}"
+redis:
+  host: "${REDIS_HOST}"
+  port: "${REDIS_PORT}"
+  password: "${REDIS_PASSWORD}"
+  db: "${REDIS_DB}"
 postgres:
   user: "${POSTGRES_USER}"
   password: "${POSTGRES_PASSWORD}"

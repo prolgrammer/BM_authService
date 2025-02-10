@@ -3,8 +3,9 @@ package app
 import (
 	"auth/infrastructure/postgres"
 	"auth/infrastructure/postgres/commands/account"
-	"auth/infrastructure/postgres/commands/session"
+	"auth/infrastructure/redis/commands/sessions"
 	"auth/internal/repositories"
+	"github.com/redis/go-redis/v9"
 )
 
 func CreatePGAccountRepository(client *postgres.Client) repositories.AccountRepository {
@@ -17,10 +18,16 @@ func CreatePGAccountRepository(client *postgres.Client) repositories.AccountRepo
 	)
 }
 
-func CreateSessionRepository(client *postgres.Client) repositories.SessionRepository {
-	insertSessionCommand := session.NewInsertSessionCommand(client)
+func CreateSessionRepository(client *redis.Client) repositories.SessionRepository {
+	insertSessionCommand := sessions.NewInsertSessionRedisCommand(client)
+	selectSessionByAccessTokenCommand := sessions.NewSelectSessionByAccessTokenCommand(client)
+	updateSessionByAccessTokenCommand := sessions.NewUpdateByAccessTokenCommand(client)
+	deleteSessionByAccessTokenCommand := sessions.NewDeleteByAccessTokenCommand(client)
 
 	return repositories.NewSessionRepository(
 		insertSessionCommand,
+		selectSessionByAccessTokenCommand,
+		updateSessionByAccessTokenCommand,
+		deleteSessionByAccessTokenCommand,
 	)
 }

@@ -19,4 +19,16 @@ type (
 	InsertSessionCommand interface {
 		Execute(context context.Context, account entities.Session) error
 	}
+
+	SelectSessionByAccessTokenCommand interface {
+		Execute(context context.Context, accessToken string) (entities.Session, error)
+	}
+
+	UpdateSessionByAccessTokenCommand interface {
+		Execute(context context.Context, accessToken string, newSession entities.Session) error
+	}
+
+	DeleteSessionByAccessTokenCommand interface {
+		Execute(context context.Context, accessToken string) error
+	}
 )

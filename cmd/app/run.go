@@ -12,12 +12,15 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
+	"log"
 	"net/http"
 )
 
 var (
 	cfg            *config.Config
 	postgresClient *postgres.Client
+	redisClient    *redis.Client
 
 	sessionService pkg.SessionService
 	hashService    pkg.HashService
@@ -33,7 +36,7 @@ func Run() {
 	var err error
 	cfg, err = config.NewConfig()
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("config error: %v", err)
 	}
 
 	initPostgres()
@@ -41,6 +44,7 @@ func Run() {
 	initRepositories()
 	initUseCases()
 
+	defer redisClient.Close()
 	defer postgresClient.Close()
 
 	runServer()
@@ -97,8 +101,14 @@ func initPostgres() {
 }
 
 func initRepositories() {
+	redisClient = redis.NewClient(&redis.Options{
+		Addr:     cfg.Redis.Host + ":" + cfg.Redis.Port,
+		Password: cfg.Redis.Password,
+		DB:       cfg.Redis.DB,
+	})
+
 	accountRepository = CreatePGAccountRepository(postgresClient)
-	sessionRepository = CreateSessionRepository(postgresClient)
+	sessionRepository = CreateSessionRepository(redisClient)
 }
 
 func initUseCases() {
