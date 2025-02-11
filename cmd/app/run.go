@@ -13,6 +13,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 )
@@ -66,6 +68,7 @@ func runServer() {
 
 	http2.NewSignUpController(router, signUpUseCase, mw)
 	http2.NewSignInController(router, signInUseCase, mw)
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	address := fmt.Sprintf("%s:%s", cfg.HTTP.Host, cfg.HTTP.Port)
 	fmt.Printf("starting server at %s\n", address)
