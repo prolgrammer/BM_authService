@@ -1,0 +1,106 @@
+definitions:
+  requests.SignRequest:
+    properties:
+      email:
+        example: email@mail.ru
+        type: string
+      password:
+        example: password
+        type: string
+    type: object
+  responses.Session:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzkzMjgyMjAsInJvbGUiOiJVU0VSIiwic3ViIjoiMyJ9.mp0uoVP-RTwOQrekQZm3PkjVnzdvUGfgnbYnT9piwaw
+        type: string
+      expires_at:
+        example: 1741884220
+        type: integer
+      refresh_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDE4ODQyMjAsInJvbGUiOiJVU0VSIiwic3ViIjoiMyJ9.5ew-TEJ3io9kfxGQdO9F5b1KvPBW3REkutEAU9HypMQ
+        type: string
+    type: object
+  responses.SignResponse:
+    properties:
+      id:
+        example: "1"
+        type: string
+      session:
+        $ref: '#/definitions/responses.Session'
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: service for auth users
+  title: Auth Service
+  version: "1.0"
+paths:
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: вход в аккаунт по почте + паролю
+      parameters:
+      - description: структура запроса
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.SignRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.SignResponse'
+        "400":
+          description: некорректный формат запроса
+          schema:
+            type: string
+        "401":
+          description: неправильный пароль
+          schema:
+            type: string
+        "404":
+          description: пользователь не найден
+          schema:
+            type: string
+        "500":
+          description: внутренняя ошибка сервера
+          schema:
+            type: string
+      summary: вход в аккаунт
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: регистрация пользователя в систему
+      parameters:
+      - description: структура запроса
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.SignRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.SignResponse'
+        "400":
+          description: некорректный формат запроса
+          schema:
+            type: string
+        "409":
+          description: пользователь уже существует
+          schema:
+            type: string
+        "500":
+          description: внутренняя ошибка сервера
+          schema:
+            type: string
+      summary: регистрация пользователя
+swagger: "2.0"

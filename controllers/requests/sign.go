@@ -1,6 +1,6 @@
 package requests
 
 type SignRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email" example:"email@mail.ru"`
+	Password string `json:"password" example:"password"`
 }

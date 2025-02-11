@@ -27,6 +27,18 @@ func NewSignInController(
 	handler.POST("/signin", u.SignIn, middleware.HandleErrors)
 }
 
+// SignIn godoc
+// @Summary вход в аккаунт
+// @Description вход в аккаунт по почте + паролю
+// @Accept json
+// @Produce json
+// @Param request body requests.SignRequest true "структура запроса"
+// @Success 200 {object} responses.SignResponse
+// @Failure 400 {object} string "некорректный формат запроса"
+// @Failure 401 {object} string "неправильный пароль"
+// @Failure 404 {object} string "пользователь не найден"
+// @Failure 500 {object} string "внутренняя ошибка сервера"
+// @Router /signin [post]
 func (uc *signInController) SignIn(ctx *gin.Context) {
 	fmt.Println("SignIn")
 	var request requests.SignRequest
