@@ -1,10 +1,10 @@
 package app
 
 import (
-	"auth/infrastructure/postgres"
-	"auth/infrastructure/postgres/commands/account"
-	"auth/infrastructure/redis/commands/sessions"
-	"auth/internal/repositories"
+	"github.com/prolgrammer/BM_authService/infrastructure/postgres"
+	"github.com/prolgrammer/BM_authService/infrastructure/postgres/commands/account"
+	"github.com/prolgrammer/BM_authService/infrastructure/redis/commands/sessions"
+	"github.com/prolgrammer/BM_authService/internal/repositories"
 	"github.com/redis/go-redis/v9"
 )
 

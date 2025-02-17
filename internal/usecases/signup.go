@@ -1,11 +1,11 @@
 package usecases
 
 import (
-	"auth/controllers/requests"
-	"auth/controllers/responses"
-	"auth/internal/entities"
 	"context"
 	"fmt"
+	"github.com/prolgrammer/BM_authService/controllers/requests"
+	"github.com/prolgrammer/BM_authService/controllers/responses"
+	"github.com/prolgrammer/BM_authService/internal/entities"
 )
 
 type signUpUseCase struct {

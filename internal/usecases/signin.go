@@ -1,12 +1,12 @@
 package usecases
 
 import (
-	"auth/controllers/requests"
-	"auth/controllers/responses"
-	"auth/internal/repositories"
 	"context"
 	"errors"
 	"fmt"
+	"github.com/prolgrammer/BM_authService/controllers/requests"
+	"github.com/prolgrammer/BM_authService/controllers/responses"
+	"github.com/prolgrammer/BM_authService/internal/repositories"
 )
 
 type signInUseCase struct {

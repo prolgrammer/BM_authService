@@ -1,12 +1,12 @@
 package middleware
 
 import (
-	"auth/controllers"
-	"auth/internal/repositories"
-	"auth/internal/usecases"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/prolgrammer/BM_authService/controllers"
+	"github.com/prolgrammer/BM_authService/internal/repositories"
+	"github.com/prolgrammer/BM_authService/internal/usecases"
 	"net/http"
 )
 

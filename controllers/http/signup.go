@@ -1,12 +1,12 @@
 package http
 
 import (
-	"auth/controllers"
-	"auth/controllers/requests"
-	"auth/internal/usecases"
-	middleware2 "auth/pkg/middleware"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/prolgrammer/BM_authService/controllers"
+	"github.com/prolgrammer/BM_authService/controllers/requests"
+	"github.com/prolgrammer/BM_authService/internal/usecases"
+	middleware2 "github.com/prolgrammer/BM_authService/pkg/middleware"
 	"net/http"
 )
 

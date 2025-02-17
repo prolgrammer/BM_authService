@@ -1,11 +1,11 @@
 package account
 
 import (
-	"auth/infrastructure/postgres"
-	"auth/infrastructure/postgres/commands"
-	"auth/internal/entities"
-	"auth/internal/repositories"
 	"context"
+	"github.com/prolgrammer/BM_authService/infrastructure/postgres"
+	"github.com/prolgrammer/BM_authService/infrastructure/postgres/commands"
+	"github.com/prolgrammer/BM_authService/internal/entities"
+	"github.com/prolgrammer/BM_authService/internal/repositories"
 )
 
 type insertAccountPGCommand struct {

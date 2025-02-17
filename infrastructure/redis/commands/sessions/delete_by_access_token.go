@@ -1,8 +1,8 @@
 package sessions
 
 import (
-	"auth/internal/repositories"
 	"context"
+	"github.com/prolgrammer/BM_authService/internal/repositories"
 	"github.com/redis/go-redis/v9"
 )
 

@@ -1,9 +1,9 @@
 package repositories
 
 import (
-	"auth/internal/entities"
 	"context"
 	"errors"
+	"github.com/prolgrammer/BM_authService/internal/entities"
 )
 
 type accountRepository struct {

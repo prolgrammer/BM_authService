@@ -1,12 +1,12 @@
 package account
 
 import (
-	"auth/infrastructure/postgres"
-	"auth/internal/entities"
-	"auth/internal/repositories"
 	"context"
 	"errors"
 	"github.com/jackc/pgx/v5"
+	"github.com/prolgrammer/BM_authService/infrastructure/postgres"
+	"github.com/prolgrammer/BM_authService/internal/entities"
+	"github.com/prolgrammer/BM_authService/internal/repositories"
 )
 
 func selectAccount(context context.Context, client *postgres.Client, sql string, args []any) (entities.Account, error) {

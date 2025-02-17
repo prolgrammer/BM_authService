@@ -1,8 +1,8 @@
 package config
 
 import (
-	"auth/config/pg"
 	"fmt"
+	"github.com/prolgrammer/BM_authService/config/pg"
 	"github.com/spf13/viper"
 	"os"
 	"time"

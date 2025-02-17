@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"auth/internal/entities"
 	"context"
+	"github.com/prolgrammer/BM_authService/internal/entities"
 )
 
 type sessionRepository struct {

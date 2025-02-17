@@ -1,11 +1,11 @@
 package pkg
 
 import (
-	"auth/internal/usecases"
 	"crypto/rand"
 	"crypto/subtle"
 	"encoding/base64"
 	"fmt"
+	"github.com/prolgrammer/BM_authService/internal/usecases"
 	"golang.org/x/crypto/argon2"
 	"strings"
 )

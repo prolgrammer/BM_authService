@@ -1,10 +1,10 @@
 package sessions
 
 import (
-	"auth/infrastructure/redis/commands"
-	"auth/internal/entities"
-	"auth/internal/repositories"
 	"context"
+	"github.com/prolgrammer/BM_authService/infrastructure/redis/commands"
+	"github.com/prolgrammer/BM_authService/internal/entities"
+	"github.com/prolgrammer/BM_authService/internal/repositories"
 	"github.com/redis/go-redis/v9"
 	"time"
 )

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"auth/cmd/app"
-	_ "auth/docs"
+	"github.com/prolgrammer/BM_authService/cmd/app"
+	_ "github.com/prolgrammer/BM_authService/docs"
 )
 
 // @title Auth Service

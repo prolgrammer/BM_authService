@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	"auth/config"
-	"auth/internal/entities"
-	"auth/pkg/jwt"
+	"github.com/prolgrammer/BM_authService/config"
+	"github.com/prolgrammer/BM_authService/internal/entities"
+	"github.com/prolgrammer/BM_authService/pkg/jwt"
 	"time"
 )
 

@@ -1,15 +1,13 @@
 package postgres
 
 import (
-	"auth/config/pg"
 	"context"
 	"errors"
 	"fmt"
 	"github.com/Masterminds/squirrel"
 	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/prolgrammer/BM_authService/config/pg"
 	"time"
 )
 
