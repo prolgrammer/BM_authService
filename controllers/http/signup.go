@@ -2,9 +2,9 @@ package http
 
 import (
 	"auth/controllers"
-	"auth/controllers/http/middleware"
 	"auth/controllers/requests"
 	"auth/internal/usecases"
+	middleware2 "auth/pkg/middleware"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -17,7 +17,7 @@ type signupController struct {
 func NewSignUpController(
 	handler *gin.Engine,
 	user usecases.SignUpUseCase,
-	middleware middleware.Middleware,
+	middleware middleware2.Middleware,
 ) {
 	u := &signupController{
 		user: user,
@@ -44,14 +44,14 @@ func (u *signupController) SignUp(ctx *gin.Context) {
 	if err := ctx.ShouldBind(&req); err != nil {
 		fmt.Println(err)
 		wrappedErr := fmt.Errorf("%w: %v", controllers.ErrDataBindError, err)
-		middleware.AddGinError(ctx, wrappedErr)
+		middleware2.AddGinError(ctx, wrappedErr)
 
 		return
 	}
 
 	response, err := u.user.SignUp(ctx, req)
 	if err != nil {
-		middleware.AddGinError(ctx, err)
+		middleware2.AddGinError(ctx, err)
 		return
 	}
 

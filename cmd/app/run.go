@@ -3,11 +3,11 @@ package app
 import (
 	config "auth/config"
 	http2 "auth/controllers/http"
-	"auth/controllers/http/middleware"
 	"auth/infrastructure/postgres"
 	"auth/internal/repositories"
 	"auth/internal/usecases"
 	"auth/pkg/jwt"
+	"auth/pkg/middleware"
 	pkg "auth/pkg/services"
 	"errors"
 	"fmt"

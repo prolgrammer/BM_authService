@@ -2,9 +2,9 @@ package http
 
 import (
 	"auth/controllers"
-	"auth/controllers/http/middleware"
 	"auth/controllers/requests"
 	"auth/internal/usecases"
+	middleware2 "auth/pkg/middleware"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -17,7 +17,7 @@ type signInController struct {
 func NewSignInController(
 	handler *gin.Engine,
 	signInUseCase usecases.SignInUseCase,
-	middleware middleware.Middleware,
+	middleware middleware2.Middleware,
 ) {
 
 	u := &signInController{
@@ -44,13 +44,13 @@ func (uc *signInController) SignIn(ctx *gin.Context) {
 	var request requests.SignRequest
 	if err := ctx.ShouldBindJSON(&request); err != nil {
 		wrappedError := fmt.Errorf("%w: %w", controllers.ErrDataBindError, err)
-		middleware.AddGinError(ctx, wrappedError)
+		middleware2.AddGinError(ctx, wrappedError)
 		return
 	}
 
 	response, err := uc.user.SignIn(ctx, request)
 	if err != nil {
-		middleware.AddGinError(ctx, err)
+		middleware2.AddGinError(ctx, err)
 		return
 	}
 
