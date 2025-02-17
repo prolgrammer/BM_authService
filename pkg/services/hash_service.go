@@ -5,7 +5,7 @@ import (
 	"crypto/subtle"
 	"encoding/base64"
 	"fmt"
-	"github.com/prolgrammer/BM_authService/internal/usecases"
+	e "github.com/prolgrammer/BM_package/errors"
 	"golang.org/x/crypto/argon2"
 	"strings"
 )
@@ -70,7 +70,7 @@ func (h *hashService) CompareStringAndHash(stringToCompare string, hashedString 
 		return true, nil
 	}
 
-	return false, usecases.ErrPasswordMismatch
+	return false, e.ErrPasswordMismatch
 }
 
 func decodeHash(encodedHash string) (p *hashService, salt, hash []byte, err error) {

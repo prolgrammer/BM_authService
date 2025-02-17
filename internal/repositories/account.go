@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/prolgrammer/BM_authService/internal/entities"
+	e "github.com/prolgrammer/BM_package/errors"
 )
 
 type accountRepository struct {
@@ -40,7 +41,7 @@ func (u *accountRepository) SelectByEmail(ctx context.Context, email string) (en
 func (u *accountRepository) CheckEmailExists(ctx context.Context, email entities.Email) (bool, error) {
 	_, err := u.selectAccountByEmailCommand.Execute(ctx, email)
 	if err != nil {
-		if errors.Is(err, ErrEntityNotFound) {
+		if errors.Is(err, e.ErrEntityNotFound) {
 			return false, nil
 		}
 		return false, err

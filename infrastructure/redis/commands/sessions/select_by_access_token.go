@@ -5,6 +5,7 @@ import (
 	"github.com/prolgrammer/BM_authService/infrastructure/redis/commands"
 	"github.com/prolgrammer/BM_authService/internal/entities"
 	"github.com/prolgrammer/BM_authService/internal/repositories"
+	e "github.com/prolgrammer/BM_package/errors"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -23,7 +24,7 @@ func (s selectSessionByAccessTokenCommand) Execute(context context.Context, acce
 		return entities.Session{}, err
 	}
 	if value == nil {
-		return entities.Session{}, repositories.ErrEntityNotFound
+		return entities.Session{}, e.ErrEntityNotFound
 	}
 
 	return *value, nil

@@ -110,6 +110,12 @@ github.com/pelletier/go-toml/v2 v2.2.3/go.mod h1:MfCQTFTvCcUyyvvwm1+G6H/jORL20Xl
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 h1:Jamvg5psRIccs7FGNTlIRMkT8wgtp5eCXdBlqhYGL6U=
 github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/prolgrammer/BM_package v0.0.0-20250217153101-80b39ad430bc h1:g7pUrwkcxe9aYOrIJORFMd7eJHZnTuOQ5m4KZb9EqXk=
+github.com/prolgrammer/BM_package v0.0.0-20250217153101-80b39ad430bc/go.mod h1:rErEybB5f7JXEN8CMPO/63c9Du3MiY3R+rTER+wAAHI=
+github.com/prolgrammer/BM_package v0.0.0-20250217154228-7b4a3a082ded h1:y0WOSkhVoL/aVBn6rtuZlsIS7fHykPErS3knVfn+rRU=
+github.com/prolgrammer/BM_package v0.0.0-20250217154228-7b4a3a082ded/go.mod h1:rErEybB5f7JXEN8CMPO/63c9Du3MiY3R+rTER+wAAHI=
+github.com/prolgrammer/BM_package v0.0.0-20250217161307-50b4a4159559 h1:w7ANHE1/aR4KI34eflq+DTAgBqvJZY2Oy9QmVF7LHAI=
+github.com/prolgrammer/BM_package v0.0.0-20250217161307-50b4a4159559/go.mod h1:rErEybB5f7JXEN8CMPO/63c9Du3MiY3R+rTER+wAAHI=
 github.com/redis/go-redis/v9 v9.7.0 h1:HhLSs+B6O021gwzl+locl0zEDnyNkxMtf/Z3NNBMa9E=
 github.com/redis/go-redis/v9 v9.7.0/go.mod h1:f6zhXITC7JUJIlPEiBOTXxJgPLdZcA93GewI7inzyWw=
 github.com/rogpeppe/go-internal v1.13.1 h1:KvO1DLK/DRN07sQ1LQKScxyZJuNnedQ5/wKSR38lUII=

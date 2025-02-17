@@ -3,10 +3,10 @@ package http
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/prolgrammer/BM_authService/controllers"
 	"github.com/prolgrammer/BM_authService/controllers/requests"
 	"github.com/prolgrammer/BM_authService/internal/usecases"
-	middleware2 "github.com/prolgrammer/BM_authService/pkg/middleware"
+	e "github.com/prolgrammer/BM_package/errors"
+	"github.com/prolgrammer/BM_package/middleware"
 	"net/http"
 )
 
@@ -17,7 +17,7 @@ type signupController struct {
 func NewSignUpController(
 	handler *gin.Engine,
 	user usecases.SignUpUseCase,
-	middleware middleware2.Middleware,
+	middleware middleware.Middleware,
 ) {
 	u := &signupController{
 		user: user,
@@ -43,15 +43,15 @@ func (u *signupController) SignUp(ctx *gin.Context) {
 	var req requests.SignRequest
 	if err := ctx.ShouldBind(&req); err != nil {
 		fmt.Println(err)
-		wrappedErr := fmt.Errorf("%w: %v", controllers.ErrDataBindError, err)
-		middleware2.AddGinError(ctx, wrappedErr)
+		wrappedErr := fmt.Errorf("%w: %v", e.ErrDataBindError, err)
+		middleware.AddGinError(ctx, wrappedErr)
 
 		return
 	}
 
 	response, err := u.user.SignUp(ctx, req)
 	if err != nil {
-		middleware2.AddGinError(ctx, err)
+		middleware.AddGinError(ctx, err)
 		return
 	}
 

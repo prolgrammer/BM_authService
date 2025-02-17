@@ -6,6 +6,7 @@ import (
 	"github.com/prolgrammer/BM_authService/controllers/requests"
 	"github.com/prolgrammer/BM_authService/controllers/responses"
 	"github.com/prolgrammer/BM_authService/internal/entities"
+	e "github.com/prolgrammer/BM_package/errors"
 )
 
 type signUpUseCase struct {
@@ -39,7 +40,7 @@ func (u *signUpUseCase) SignUp(ctx context.Context, request requests.SignRequest
 		return responses.SignResponse{}, fmt.Errorf("in check email error: %v", err)
 	}
 	if exists {
-		return responses.SignResponse{}, ErrEntityAlreadyExists
+		return responses.SignResponse{}, e.ErrEntityAlreadyExists
 	}
 
 	account := entities.NewAccount(request.Email, request.Password)

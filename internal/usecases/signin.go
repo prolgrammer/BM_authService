@@ -7,6 +7,7 @@ import (
 	"github.com/prolgrammer/BM_authService/controllers/requests"
 	"github.com/prolgrammer/BM_authService/controllers/responses"
 	"github.com/prolgrammer/BM_authService/internal/repositories"
+	e "github.com/prolgrammer/BM_package/errors"
 )
 
 type signInUseCase struct {
@@ -32,8 +33,8 @@ func NewSignInUseCase(accountRepository SignInAccountRepository, sessionReposito
 func (s signInUseCase) SignIn(ctx context.Context, request requests.SignRequest) (responses.SignResponse, error) {
 	ac, err := s.accountRepository.SelectByEmail(ctx, request.Email)
 	if err != nil {
-		if errors.Is(err, repositories.ErrEntityNotFound) {
-			return responses.SignResponse{}, repositories.ErrEntityNotFound
+		if errors.Is(err, e.ErrEntityNotFound) {
+			return responses.SignResponse{}, e.ErrEntityNotFound
 		}
 		return responses.SignResponse{}, err
 	}
