@@ -1,4 +1,4 @@
-module auth
+module github.com/prolgrammer/BM_authService
 
 go 1.23.1
 
