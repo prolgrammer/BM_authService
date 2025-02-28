@@ -23,7 +23,7 @@ func NewSignUpController(
 		user: user,
 	}
 
-	handler.POST("/signup", u.SignUp, middleware.HandleErrors)
+	handler.POST("/auth/signup", u.SignUp, middleware.HandleErrors)
 }
 
 // SignUp godoc
@@ -36,7 +36,7 @@ func NewSignUpController(
 // @Failure 400 {object} string "некорректный формат запроса"
 // @Failure 409 {object} string "пользователь уже существует"
 // @Failure 500 {object} string "внутренняя ошибка сервера"
-// @Router /signup [post]
+// @Router /auth/signup [post]
 func (u *signupController) SignUp(ctx *gin.Context) {
 	fmt.Print("SignUp\n")
 

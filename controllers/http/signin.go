@@ -24,7 +24,7 @@ func NewSignInController(
 		user: signInUseCase,
 	}
 
-	handler.POST("/signin", u.SignIn, middleware.HandleErrors)
+	handler.POST("/auth/signin", u.SignIn, middleware.HandleErrors)
 }
 
 // SignIn godoc
@@ -38,7 +38,7 @@ func NewSignInController(
 // @Failure 401 {object} string "неправильный пароль"
 // @Failure 404 {object} string "пользователь не найден"
 // @Failure 500 {object} string "внутренняя ошибка сервера"
-// @Router /signin [post]
+// @Router /auth/signin [post]
 func (uc *signInController) SignIn(ctx *gin.Context) {
 	fmt.Println("SignIn")
 	var request requests.SignRequest

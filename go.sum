@@ -116,6 +116,10 @@ github.com/prolgrammer/BM_package v0.0.0-20250217154228-7b4a3a082ded h1:y0WOSkhV
 github.com/prolgrammer/BM_package v0.0.0-20250217154228-7b4a3a082ded/go.mod h1:rErEybB5f7JXEN8CMPO/63c9Du3MiY3R+rTER+wAAHI=
 github.com/prolgrammer/BM_package v0.0.0-20250217161307-50b4a4159559 h1:w7ANHE1/aR4KI34eflq+DTAgBqvJZY2Oy9QmVF7LHAI=
 github.com/prolgrammer/BM_package v0.0.0-20250217161307-50b4a4159559/go.mod h1:rErEybB5f7JXEN8CMPO/63c9Du3MiY3R+rTER+wAAHI=
+github.com/prolgrammer/BM_package v0.0.0-20250221102410-a55649efc101 h1:RdXjZx6WlsjO0/oIAJpiGDsLT2/za0AfJuGh3Ijsoc4=
+github.com/prolgrammer/BM_package v0.0.0-20250221102410-a55649efc101/go.mod h1:zjKuNv92rF0b8En6My62cCIjA9XOqvZqACQzegiREQ4=
+github.com/prolgrammer/BM_package v0.0.0-20250221103612-96cc2d0edf5a h1:uaF2OFPKDWx09SUS5znNIvbtpTgN+XqxyVh6xNMIwdM=
+github.com/prolgrammer/BM_package v0.0.0-20250221103612-96cc2d0edf5a/go.mod h1:zjKuNv92rF0b8En6My62cCIjA9XOqvZqACQzegiREQ4=
 github.com/redis/go-redis/v9 v9.7.0 h1:HhLSs+B6O021gwzl+locl0zEDnyNkxMtf/Z3NNBMa9E=
 github.com/redis/go-redis/v9 v9.7.0/go.mod h1:f6zhXITC7JUJIlPEiBOTXxJgPLdZcA93GewI7inzyWw=
 github.com/rogpeppe/go-internal v1.13.1 h1:KvO1DLK/DRN07sQ1LQKScxyZJuNnedQ5/wKSR38lUII=

@@ -8,7 +8,7 @@
     },
     "host": "localhost:8080",
     "paths": {
-        "/signin": {
+        "/auth/signin": {
             "post": {
                 "description": "вход в аккаунт по почте + паролю",
                 "consumes": [
@@ -63,7 +63,7 @@
                 }
             }
         },
-        "/signup": {
+        "/auth/signup": {
             "post": {
                 "description": "регистрация пользователя в систему",
                 "consumes": [

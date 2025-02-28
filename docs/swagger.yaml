@@ -35,7 +35,7 @@ info:
   title: Auth Service
   version: "1.0"
 paths:
-  /signin:
+  /auth/signin:
     post:
       consumes:
       - application/json
@@ -71,7 +71,7 @@ paths:
           schema:
             type: string
       summary: вход в аккаунт
-  /signup:
+  /auth/signup:
     post:
       consumes:
       - application/json

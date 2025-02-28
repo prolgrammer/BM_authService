@@ -64,7 +64,7 @@ func runServer() {
 	router := gin.New()
 	router.HandleMethodNotAllowed = true
 
-	mw := middleware.NewMiddleware()
+	mw := middleware.NewMiddleware(cfg.SignSecretToken)
 
 	http2.NewSignUpController(router, signUpUseCase, mw)
 	http2.NewSignInController(router, signInUseCase, mw)
